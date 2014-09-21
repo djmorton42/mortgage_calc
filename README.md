@@ -7,6 +7,10 @@ This utility allows you to input a variety of parameters and view a mortgage amo
 
 This was written to deal with Canadian Mortgages, so your milleage may vary when dealing with other countries.  Specifically, it is assumed that payment happens monthly, at the end of the period (If you take possesion on the first of the month, you pay on the first of the following month).
 
+Execute the script by running the following command inside the src directory:
+
+python mortgagecalc.py
+
 You can specify many parameters, either through the command line or through a file.
 
 Command Line Arguments:
