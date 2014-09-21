@@ -1,0 +1,6 @@
+initial_payment_date : 2014-11-01
+quoted_rate : 4.05
+monthly_payment : 900.00
+opening_balance : 200000.00
+number_of_months : 60
+months_per_compound_period : 6
