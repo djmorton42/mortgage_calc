@@ -6,7 +6,7 @@ from decimal import Decimal
 import re
 
 class YamlArgumentFileParser(ArgumentFileParser):
-    def __init(self, filename):
+    def __init__(self, filename):
         super(YamlArgumentFileParser, self).__init__(filename)
 
     def parse(self):

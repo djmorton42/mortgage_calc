@@ -5,7 +5,7 @@ from decimal import Decimal
 import json
 
 class JsonArgumentFileParser(ArgumentFileParser):
-    def __init(self, filename):
+    def __init__(self, filename):
         super(JsonArgumentFileParser, self).__init__(filename)
 
     def parse(self):
@@ -16,7 +16,8 @@ class JsonArgumentFileParser(ArgumentFileParser):
             jsonProperties = json.load(handle, parse_float=Decimal)
             
             return CalculationProperties(
-                 datetime.strptime(jsonProperties["initial_payment_date"], "%Y-%m-%d"), 
+                 datetime.strptime(
+                    jsonProperties["initial_payment_date"], "%Y-%m-%d"), 
                  Decimal(jsonProperties["opening_balance"]), 
                  Decimal(jsonProperties["quoted_rate"]) / 100, 
                  Decimal(jsonProperties["monthly_payment"]), 
