@@ -20,14 +20,16 @@ def add_month(original_date):
             month = original_date.month + 1)
 
 def print_header():
-    print("Month #  Date        " 
+    print("Month #  Date        Rate %  " 
         + "Start Balance  Principal  Interest  End Balance")
 
-def print_formatted_line(month_index, current_date, current_balance, 
-    principal_paid, montly_interest, new_balance):
+def print_formatted_line(month_index, current_date, rate, 
+    current_balance, principal_paid, montly_interest, new_balance):
     print(str(month_index + 1).rjust(3, " ") 
         + "      "
         + current_date.strftime("%Y-%m-%d")
+        + "  "
+        + "{0:.2f}%".format(rate * 100).rjust(6, " ")
         + "  "
         + locale.currency(current_balance).rjust(13, " ")
         + "  "
@@ -59,9 +61,28 @@ def retrieve_args():
         help="The number of months desired in theamortization table")
     argument_parser.add_argument("-c", "--compound", 
         help="The number of months in a compounding period.  6 for semi-annually, 1 for monthly.")
+    argument_parser.add_argument("-ca", "--creepa",
+        help="The percentage amount to be added to the quoted interest rate at regular intervals")
+    argument_parser.add_argument("-cf", "--creepf",
+        help="How often (in months) to apply the -ca argument")
 
     args = vars(argument_parser.parse_args())
     return args, argument_parser    
+
+def get_rate_creep_from_args(args):
+    creepf = None
+    creepa = None
+
+    if args["creepf"] is not None:
+        creepf = int(args["creepf"])
+
+    if args["creepa"] is not None:
+        creepa = Decimal(args["creepa"]) / 100
+
+    if creepf is not None and creepa is not None:
+        return creepf, creepa
+    else:
+        return None, None
 
 if __name__ == '__main__':
     locale.setlocale(locale.LC_ALL, '')
@@ -82,6 +103,10 @@ if __name__ == '__main__':
         sys.exit();
 
     calculator_properties.print_properties()
+    creep_frequency, creep_amount = get_rate_creep_from_args(args)
+
+    print("Creep Frequency: " + str(creep_frequency) + " months")
+    print("Creep Amount: " + "{0:.2f}%".format(creep_amount * 100))
 
     effective_annual_interest_rate = calculator_properties.effective_annual_interest_rate
     effective_monthly_interest_rate = calculator_properties.effective_monthly_interest_rate
@@ -95,12 +120,19 @@ if __name__ == '__main__':
             print("")
             print_header()
 
+        if month_index > 0 and creep_frequency is not None:
+            if month_index % creep_frequency == 0:
+                calculator_properties.interest_rate += creep_amount
+                effective_annual_interest_rate = calculator_properties.effective_annual_interest_rate
+                effective_monthly_interest_rate = calculator_properties.effective_monthly_interest_rate
+
         current_date = add_month(current_date)        
         monthly_interest = effective_monthly_interest_rate * current_balance
         principal_paid = calculator_properties.monthly_payment - monthly_interest
         new_balance = current_balance + monthly_interest - calculator_properties.monthly_payment
 
-        print_formatted_line(month_index, current_date, current_balance,
+        print_formatted_line(month_index, current_date, 
+            calculator_properties.interest_rate, current_balance, 
             principal_paid, monthly_interest, new_balance)
         
         current_balance = new_balance

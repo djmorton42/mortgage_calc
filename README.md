@@ -21,8 +21,16 @@ Command Line Arguments:
 -p the montly payment you expect to make
 -n the number of months you wish to display in the table
 -c the number of months in each compounding period (6 for semi-annually, 1 for montly, for example)
+-ca a perectage amount to add to the quoted annual interest rate at fixed intervals
+-cf how often (in months) the -ca property should be applied to the quoted annual interest rate.
 
 In Canada, for fixed rate mortgages, use 6 for the number of months in each compounding period.  For variable rate mortgages, use 1 (monthly).
+
+The -ca and -cf properties allow you to modify the quoted annual interest rate at regular intervals.  This allows you to simulate a regular increase or decrease in the interest rate from your bank if you opt for a variable mortgage.  If you specify the following command line arguments:
+
+-ca 0.25 -cf 6
+
+The quoted annual interest rate would be increased by 0.25% every 6 months and the effective yearly and monthly interest rates will be recalculated accordingly.  This allows you to see what kind of interest rate movement would have to occur before a variable became a worse choice than a fixed.
 
 In addition to the command line arguments, you may also specify these properties in JSON, YAML or Property files.  You pass the filename to use with the -f parameter.  If you also include any other command line parameters, the values passed on the command line will override the values in the file.  Below are examples of each:
 

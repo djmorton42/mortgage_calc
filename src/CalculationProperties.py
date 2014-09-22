@@ -40,7 +40,7 @@ class CalculationProperties(object):
             self.number_of_months = int(args["months"])
 
         if args["compound"] is not None:
-            self.compounding_months = int(args["compound"])
+            self.compounding_months = int(args["compound"])        
 
     @staticmethod
     def from_args(args):
@@ -58,12 +58,12 @@ class CalculationProperties(object):
         print("Opening Balance: $" + str(self.opening_balance))
         print("Monthly Payment: $" + str(self.monthly_payment))    
         print("Number of Months to display: " 
-            + str(self.number_of_months))    
+            + str(self.number_of_months) + " months")    
         print("Quoted Interest Rate: " 
-            + str(self.interest_rate * 100) + "%")
+            + "{0:.2f}%".format(self.interest_rate * 100))
         print("Compounding every " 
             + str(self.compounding_months) + " months")
         print("Effective Annual Interest Rate: " 
-            + str(self.effective_annual_interest_rate * 100) + "%")
+            + "{0:.2f}%".format(self.effective_annual_interest_rate * 100))
         print("Effective Monthly Interest Rate: " 
-            + str(self.effective_monthly_interest_rate * 100) + "%")
+            + "{0:.2f}%".format(self.effective_monthly_interest_rate * 100))
