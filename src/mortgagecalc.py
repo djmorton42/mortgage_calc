@@ -105,8 +105,11 @@ if __name__ == '__main__':
     calculator_properties.print_properties()
     creep_frequency, creep_amount = get_rate_creep_from_args(args)
 
-    print("Creep Frequency: " + str(creep_frequency) + " months")
-    print("Creep Amount: " + "{0:.2f}%".format(creep_amount * 100))
+    if creep_frequency is not None:
+        print("Creep Frequency: " + str(creep_frequency) + " months")
+
+    if creep_amount is not None:
+        print("Creep Amount: " + "{0:.2f}%".format(creep_amount * 100))
 
     effective_annual_interest_rate = calculator_properties.effective_annual_interest_rate
     effective_monthly_interest_rate = calculator_properties.effective_monthly_interest_rate
