@@ -25,5 +25,5 @@ class JsonArgumentFileParser(ArgumentFileParser):
                  int(jsonProperties["months_per_compound_period"]))
 
         finally:
-            if handle != None:
+            if handle is not None:
                 handle.close()        

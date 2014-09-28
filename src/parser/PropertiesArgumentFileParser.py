@@ -5,9 +5,9 @@ from decimal import Decimal
 
 import re
 
-class YamlArgumentFileParser(ArgumentFileParser):
+class PropertiesArgumentFileParser(ArgumentFileParser):
     def __init__(self, filename):
-        super(YamlArgumentFileParser, self).__init__(filename)
+        super(PropertiesArgumentFileParser, self).__init__(filename)
 
     def parse(self):
         handle = None
@@ -24,7 +24,7 @@ class YamlArgumentFileParser(ArgumentFileParser):
             monthly_payment = None
 
             for line in lines:
-                search_result = re.search("^(.*?):(.*?)$", line)
+                search_result = re.search("^(.*?)=(.*?)$", line)
 
                 label = search_result.group(1).strip()
                 value = search_result.group(2).strip()
@@ -50,5 +50,5 @@ class YamlArgumentFileParser(ArgumentFileParser):
                 compounding_months)
 
         finally:
-            if handle != None:
+            if handle is not None:
                 handle.close()
