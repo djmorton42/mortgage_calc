@@ -21,9 +21,9 @@ Command Line Arguments:
 -p the montly payment you expect to make
 -n the number of months you wish to display in the table
 -c the number of months in each compounding period (6 for semi-annually, 1 for montly, for example)
+-o the output file to write to.  If not specified, the table is printed to the console.  Presently the filename must end with .csv.
 -ca a perectage amount to add to the quoted annual interest rate at fixed intervals
 -cf how often (in months) the -ca property should be applied to the quoted annual interest rate.
-
 In Canada, for fixed rate mortgages, use 6 for the number of months in each compounding period.  For variable rate mortgages, use 1 (monthly).
 
 The -ca and -cf properties allow you to modify the quoted annual interest rate at regular intervals.  This allows you to simulate a regular increase or decrease in the interest rate from your bank if you opt for a variable mortgage.  If you specify the following command line arguments:
